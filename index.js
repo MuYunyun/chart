@@ -8,7 +8,7 @@ const yArr = [0, 50, 100, 150, 200, 250, 300]
 const valueArr = [30, 60, 180, 100, 120, 40, 80]
 
 window.onload = () => {
-  const createLine = (x0, y0, x1, y1) => {
+  const drawLine = (x0, y0, x1, y1) => {
     ctx.beginPath()
     ctx.moveTo(x0, y0)
     ctx.lineTo(x1, y1)
@@ -24,8 +24,8 @@ window.onload = () => {
     ctx.scale(1, -1)
     ctx.translate(marginLeft, -height + marginBottom)
 
-    createLine(0, 0, effectWidth, 0)
-    createLine(0, 0, 0, height)
+    drawLine(0, 0, effectWidth, 0)
+    drawLine(0, 0, 0, height)
   }
   const canvas = document.getElementById("canvas")
   canvas.width = width
@@ -41,14 +41,14 @@ window.onload = () => {
   for (let i = 0; i < 6; i++) {
     ctx.translate(0, perYLength)
     ctx.lineWidth = 0.08
-    createLine(0, 0, width, 0)
+    drawLine(0, 0, width, 0)
   }
   ctx.restore()
 
   // 绘制刻度
   ctx.save()
   for (let i = 0; i < xArr.length + 1; i++) {
-    createLine(0, 0, 0, -5)
+    drawLine(0, 0, 0, -5)
     ctx.lineWidth = 0.2
     ctx.translate(perXLength, 0)
   }
@@ -80,11 +80,19 @@ window.onload = () => {
   }
   ctx.restore()
 
-  // 折线
+  // 绘制折线与圆
   ctx.save()
-  for (let i = 0; i < xArr.length; i++) {
+  for (let i = 0; i < xArr.length - 1; i++) {
     ctx.fillStyle = '#000'
-    // todo:
+    const curPointX = (1 / 2 + i) * perXLength
+    const curPointY = valueArr[i]
+    const nextPointX = (1 / 2 + i + 1) * perXLength
+    const nextPointY = valueArr[i + 1]
+
+    drawLine(curPointX, curPointY, nextPointX, nextPointY)
   }
   ctx.restore()
+
+  // 绘制圆
+
 }
