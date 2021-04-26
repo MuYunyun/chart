@@ -8,21 +8,22 @@
 
 <body>
   <h3>折线图</h3>
-  <canvas id="canvas" />
+  <canvas id="canvas"></canvas>
   <h3>曲线图</h3>
-  <canvas id="canvas1" />
+  <canvas id="canvas1"></canvas>
+  <script src="util.js"></script>
   <script src="chart.js"></script>
   <script>
-    new Chart({
-      id: 'canvas',
-      width: 350,
-      height: 200,
-      marginLeft: 20,
-      marginBottom: 20,
-      xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
-      yArr: [0, 50, 100, 150, 200, 250, 300],
-      valueArr: [30, 60, 180, 100, 120, 40, 80],
-    })
+    // new Chart({
+    //   id: 'canvas',
+    //   width: 350,
+    //   height: 200,
+    //   marginLeft: 20,
+    //   marginBottom: 20,
+    //   xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+    //   yArr: [0, 50, 100, 150, 200, 250, 300],
+    //   valueArr: [30, 60, 180, 100, 120, 40, 80],
+    // })
     new Chart({
       id: 'canvas1',
       width: 350,

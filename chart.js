@@ -6,7 +6,8 @@ const Chart = function({
   xArr,
   yArr,
   valueArr,
-  id
+  id,
+  shape
 }) {
   const effectWidth = width - marginLeft
   const effectHeight = height - marginBottom
@@ -82,7 +83,25 @@ const Chart = function({
     const nextPointX = (1 / 2 + i + 1) * perXLength
     const nextPointY = valueArr[i + 1]
 
-    this.drawLine({ ctx: ctx, x0: curPointX, y0: curPointY, x1: nextPointX, y1: nextPointY })
+    // todo
+    if (shape === 'smooth') {
+      // const middleX = curPointX + (nextPointX - curPointX) / 2
+      // const biggerDigit = nextPointY > curPointY ? nextPointY : curPointY
+      // const smallerDigit = nextPointY <= curPointY ? nextPointY : curPointY
+      // const middleY = smallerDigit + (biggerDigit - smallerDigit) / 2
+      const [middleX, middleY] = getMiddlePoint(curPointX, curPointY, nextPointX, nextPointY)
+      console.log('middleX', middleX, 'middleY', middleY)
+      const [controlX0, controlY0] = getMiddlePoint(middleX, middleY, curPointX, curPointY)
+      const [controlX1, controlY1] = getMiddlePoint(middleX, middleY, nextPointX, nextPointY)
+      ctx.beginPath()
+      ctx.moveTo(curPointX, curPointY)
+      // ctx.lineTo(nextPointX, nextPointY)
+      ctx.bezierCurveTo(controlX0, controlY0, controlX1, controlY1, nextPointX, nextPointY)
+      ctx.stroke()
+      ctx.strokeStyle = '#000'
+    } else {
+      this.drawLine({ ctx: ctx, x0: curPointX, y0: curPointY, x1: nextPointX, y1: nextPointY })
+    }
   }
   ctx.restore()
 
