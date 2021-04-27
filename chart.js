@@ -83,20 +83,22 @@ const Chart = function({
     const nextPointX = (1 / 2 + i + 1) * perXLength
     const nextPointY = valueArr[i + 1]
 
-    // todo
     if (shape === 'smooth') {
-      // const middleX = curPointX + (nextPointX - curPointX) / 2
-      // const biggerDigit = nextPointY > curPointY ? nextPointY : curPointY
-      // const smallerDigit = nextPointY <= curPointY ? nextPointY : curPointY
-      // const middleY = smallerDigit + (biggerDigit - smallerDigit) / 2
+      console.log('curX', curPointX, 'curY', curPointY)
       const [middleX, middleY] = getMiddlePoint(curPointX, curPointY, nextPointX, nextPointY)
       console.log('middleX', middleX, 'middleY', middleY)
       const [controlX0, controlY0] = getMiddlePoint(middleX, middleY, curPointX, curPointY)
       const [controlX1, controlY1] = getMiddlePoint(middleX, middleY, nextPointX, nextPointY)
       ctx.beginPath()
       ctx.moveTo(curPointX, curPointY)
-      // ctx.lineTo(nextPointX, nextPointY)
-      ctx.bezierCurveTo(controlX0, controlY0, controlX1, controlY1, nextPointX, nextPointY)
+      // this value will be affectd by the coordinate value
+      const offset = 8
+      // ![](http://with.muyunyun.cn/d5afa118ee64691e35d17c1aba8b070e.jpg)
+      if (nextPointY > curPointY) {
+        ctx.bezierCurveTo(controlX0 + offset, controlY0 - offset, controlX1 - offset, controlY1 + offset, nextPointX, nextPointY)
+      } else {
+        ctx.bezierCurveTo(controlX0 + offset, controlY0 + offset, controlX1 - offset, controlY1 - offset, nextPointX, nextPointY)
+      }
       ctx.stroke()
       ctx.strokeStyle = '#000'
     } else {
