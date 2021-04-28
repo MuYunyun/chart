@@ -79,6 +79,8 @@ const Chart = function({
   if (mode === 'fill') {
     this.drawLine({ ctx: ctx, x0: (1 / 2) * perXLength, y0: 0, x1: (1 / 2) * perXLength, y1: valueArr[0] })
   }
+
+
   for (let i = 0; i < xArr.length - 1; i++) {
     ctx.fillStyle = '#000'
     const curPointX = (1 / 2 + i) * perXLength
@@ -103,12 +105,15 @@ const Chart = function({
       ctx.stroke()
       ctx.strokeStyle = '#000'
     } else {
-      this.drawLine({ ctx: ctx, x0: curPointX, y0: curPointY, x1: nextPointX, y1: nextPointY })
+      if (mode === 'fill') {
+        ctx.lineTo(nextPointX, nextPointY)
+      } else {
+        this.drawLine({ ctx: ctx, x0: curPointX, y0: curPointY, x1: nextPointX, y1: nextPointY })
+      }
     }
   }
   if (mode === 'fill') {
-    this.drawLine({ ctx: ctx, x0: (1 / 2 + xArr.length - 1) * perXLength, y0: valueArr[valueArr.length - 1], x1: (1 / 2 + xArr.length - 1) * perXLength, y1: 0 })
-    context.closePath();
+    ctx.lineTo((1 / 2 + xArr.length - 1) * perXLength, 0)
     ctx.fillStyle = 'red'
     ctx.fill()
   }
