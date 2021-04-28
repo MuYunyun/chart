@@ -1,4 +1,5 @@
 const Chart = function({
+  id,
   width,
   height,
   marginLeft,
@@ -6,8 +7,8 @@ const Chart = function({
   xArr,
   yArr,
   valueArr,
-  id,
-  shape
+  shape,
+  mode
 }) {
   const effectWidth = width - marginLeft
   const effectHeight = height - marginBottom
@@ -29,7 +30,6 @@ const Chart = function({
     marginBottom
   })
 
-  // todo
   // 绘制横向坐标轴
   ctx.save()
   for (let i = 0; i < 6; i++) {
@@ -76,6 +76,9 @@ const Chart = function({
 
   // 绘制折线
   ctx.save()
+  if (mode === 'fill') {
+    this.drawLine({ ctx: ctx, x0: (1 / 2) * perXLength, y0: 0, x1: (1 / 2) * perXLength, y1: valueArr[0] })
+  }
   for (let i = 0; i < xArr.length - 1; i++) {
     ctx.fillStyle = '#000'
     const curPointX = (1 / 2 + i) * perXLength
@@ -84,9 +87,7 @@ const Chart = function({
     const nextPointY = valueArr[i + 1]
 
     if (shape === 'smooth') {
-      console.log('curX', curPointX, 'curY', curPointY)
       const [middleX, middleY] = getMiddlePoint(curPointX, curPointY, nextPointX, nextPointY)
-      console.log('middleX', middleX, 'middleY', middleY)
       const [controlX0, controlY0] = getMiddlePoint(middleX, middleY, curPointX, curPointY)
       const [controlX1, controlY1] = getMiddlePoint(middleX, middleY, nextPointX, nextPointY)
       ctx.beginPath()
@@ -104,6 +105,12 @@ const Chart = function({
     } else {
       this.drawLine({ ctx: ctx, x0: curPointX, y0: curPointY, x1: nextPointX, y1: nextPointY })
     }
+  }
+  if (mode === 'fill') {
+    this.drawLine({ ctx: ctx, x0: (1 / 2 + xArr.length - 1) * perXLength, y0: valueArr[valueArr.length - 1], x1: (1 / 2 + xArr.length - 1) * perXLength, y1: 0 })
+    context.closePath();
+    ctx.fillStyle = 'red'
+    ctx.fill()
   }
   ctx.restore()
 
