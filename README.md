@@ -14,6 +14,7 @@
 | valueArr     | 值坐标           | number[]                   |          |
 | shape        | 线条类型         | 'normal' \| 'smooth(光滑)' | 'normal' |
 | mode         | 模式             | 'normal' \| 'fill(填充)'   | 'normal' |
+| geom         | 几何类型         | 'line' \| 'interval'       | 'line'   |
 
 ### link
 

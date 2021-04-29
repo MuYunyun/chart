@@ -21,6 +21,8 @@
   <canvas id="canvas2"></canvas>
   <h3>面积图(曲线)</h3>
   <canvas id="canvas3"></canvas>
+  <h3>柱状图</h3>
+  <canvas id="canvas4"></canvas>
   <script src="util.js"></script>
   <script src="chart.js"></script>
   <script>
@@ -33,6 +35,7 @@
       xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
       yArr: [0, 50, 100, 150, 200, 250, 300],
       valueArr: [30, 60, 180, 100, 120, 40, 80],
+      geom: 'line'
     })
     new Chart({
       id: 'canvas1',
@@ -43,7 +46,8 @@
       xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
       yArr: [0, 50, 100, 150, 200, 250, 300],
       valueArr: [30, 60, 180, 100, 120, 40, 80],
-      shape: "smooth"
+      shape: "smooth",
+      geom: 'line'
     })
     new Chart({
       id: 'canvas2',
@@ -54,7 +58,8 @@
       xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
       yArr: [0, 50, 100, 150, 200, 250, 300],
       valueArr: [30, 60, 180, 100, 120, 40, 80],
-      mode: 'fill'
+      mode: 'fill',
+      geom: 'line'
     })
     new Chart({
       id: 'canvas3',
@@ -66,7 +71,21 @@
       yArr: [0, 50, 100, 150, 200, 250, 300],
       valueArr: [30, 60, 180, 100, 120, 40, 80],
       shape: "smooth",
-      mode: 'fill'
+      mode: 'fill',
+      geom: 'line'
+    })
+    new Chart({
+      id: 'canvas4',
+      width: 350,
+      height: 200,
+      marginLeft: 20,
+      marginBottom: 20,
+      xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+      yArr: [0, 50, 100, 150, 200, 250, 300],
+      valueArr: [30, 60, 180, 100, 120, 40, 80],
+      shape: "smooth",
+      mode: 'fill',
+      geom: 'interval'
     })
   </script>
 </body>
