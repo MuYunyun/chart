@@ -20,7 +20,7 @@
   <h3>面积图</h3>
   <canvas id="canvas2"></canvas>
   <h3>面积图(曲线)</h3>
-  <canvas id="canvas2"></canvas>
+  <canvas id="canvas3"></canvas>
   <script src="util.js"></script>
   <script src="chart.js"></script>
   <script>
@@ -54,6 +54,18 @@
       xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
       yArr: [0, 50, 100, 150, 200, 250, 300],
       valueArr: [30, 60, 180, 100, 120, 40, 80],
+      mode: 'fill'
+    })
+    new Chart({
+      id: 'canvas3',
+      width: 350,
+      height: 200,
+      marginLeft: 20,
+      marginBottom: 20,
+      xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+      yArr: [0, 50, 100, 150, 200, 250, 300],
+      valueArr: [30, 60, 180, 100, 120, 40, 80],
+      shape: "smooth",
       mode: 'fill'
     })
   </script>
