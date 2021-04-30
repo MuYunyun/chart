@@ -7,8 +7,9 @@
 | id           | 元素节点位置     | string                     |          |
 | width        | 宽度             | number                     |          |
 | height       | 高度             | number                     |          |
-| marginLeft   | 左间距           | number                     |          |
-| marginBottom | 下间距           | number                     |          |
+| marginLeft   | 左间距           | number                     | 0        |
+| marginBottom | 下间距           | number                     | 0        |
+| marginTop    | 上间距           | number                     | 0        |
 | xArr         | 水平方向节点坐标 | number[]                   |          |
 | yArr         | 垂直方向节点坐标 | number[]                   |          |
 | valueArr     | 值坐标           | number[]                   |          |
@@ -16,6 +17,14 @@
 | mode         | 模式             | 'normal' \| 'fill(填充)'   | 'normal' |
 | geom         | 几何类型         | 'line' \| 'interval'       | 'line'   |
 
+### todoList
+
+- [x] 支持折线图
+- [x] 支持面积图
+- [x] 支持柱状图
+- [ ] 支持雷达图
+- [ ] 处理矩形数据
+
 ### link
 
-* [reference](https://juejin.cn/post/6950684708443258894#heading-26)
+* [reference](https://juejin.cn/post/6950684708443258894#heading-30)
