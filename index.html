@@ -23,6 +23,8 @@
   <canvas id="canvas3"></canvas>
   <h3>柱状图</h3>
   <canvas id="canvas4"></canvas>
+  <h3>雷达图</h3>
+  <canvas id="canvas5"></canvas>
   <script src="util.js"></script>
   <script src="chart.js"></script>
   <script>
@@ -86,6 +88,20 @@
       shape: "smooth",
       mode: 'fill',
       geom: 'interval'
+    })
+    new Chart({
+      id: 'canvas5',
+      width: 350,
+      height: 200,
+      marginLeft: 20,
+      marginBottom: 20,
+      xArr: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+      yArr: [0, 50, 100, 150, 200, 250, 300],
+      valueArr: [30, 60, 180, 100, 120, 40, 80],
+      // shape: "smooth",
+      // mode: 'fill',
+      // geom: 'interval',
+      coord: 'polar'
     })
   </script>
 </body>
