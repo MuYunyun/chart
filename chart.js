@@ -172,7 +172,11 @@ const Chart = function({
       ctx.restore()
     }
   } else if (coord === 'polar') {
-    // todo
+    this.drawPolarSystem({
+      ctx,
+      width: canvas.width,
+      height: canvas.height
+    })
   }
 }
 
@@ -199,7 +203,40 @@ Chart.prototype.drawCoordinateSystem = function({
 }) {
   ctx.scale(1, -1)
   ctx.translate(marginLeft, -height + marginBottom)
-
   this.drawLine({ ctx, x0: 0, y0: 0, x1: effectWidth, y1: 0 })
   this.drawLine({ ctx, x0: 0, y0: 0, x1: 0, y1: height })
 }
+
+Chart.prototype.drawPolarSystem = function({
+  ctx,
+  width,
+  height
+}) {
+  ctx.translate(1 / 2 * width, 1 / 2 * height)
+  ctx.scale(1, -1)
+
+  ctx.beginPath()
+  ctx.arc(0, 0, 80, 0, Math.PI * 2, true)
+  ctx.stroke()
+
+  ctx.beginPath()
+  ctx.arc(0, 0, 60, 0, Math.PI * 2, true)
+  ctx.stroke()
+
+  ctx.beginPath()
+  ctx.arc(0, 0, 40, 0, Math.PI * 2, true)
+  ctx.stroke()
+
+  const y1 = 300 * Math.tan(Math.PI / 180 * 30)
+  const destination = [[300, y1], [-300, -y1], [-300, y1], [300, -y1], [0, y1], [0, -y1]]
+  for (let i = 0; i < destination.length; i++) {
+    this.drawLine({
+      ctx,
+      x0: 0,
+      y0: 0,
+      x1: destination[i][0],
+      y1: destination[i][1]
+    })
+  }
+}
+
