@@ -175,8 +175,31 @@ const Chart = function({
     this.drawPolarSystem({
       ctx,
       width: canvas.width,
-      height: canvas.height
+      height: canvas.height,
+      yArr,
     })
+
+    this.drawLine({ ctx: ctx, x0: 0, y0: 30, x1: getX(50, 30), y1: getY(50, 30) })
+    // todo: can't set color here
+    // ctx.stroke()
+    // ctx.strokeStyle = 'red'
+    this.drawLine({ ctx: ctx, x0: getX(50, 30), y0: getY(50, 30), x1: getX(60, 30), y1: -getY(60, 30) })
+    this.drawLine({ ctx: ctx, x0: getX(60, 30), y0: -getY(60, 30), x1: 0, y1: -90 })
+    this.drawLine({ ctx: ctx, x0: 0, y0: -90, x1: -getX(40, 30), y1: -getY(40, 30) })
+    this.drawLine({ ctx: ctx, x0: -getX(40, 30), y0: -getY(40, 30), x1: -getX(20, 30), y1: getY(20, 30) })
+    this.drawLine({ ctx: ctx, x0: -getX(20, 30), y0: getY(20, 30), x1: 0, y1: 30 })
+
+    ctx.beginPath()
+    ctx.lineTo(0, 30)
+    ctx.lineTo(getX(50, 30), getY(50, 30))
+    ctx.lineTo(getX(60, 30), -getY(60, 30))
+    ctx.lineTo(0, -90)
+    ctx.lineTo(-getX(40, 30), -getY(40, 30))
+    ctx.lineTo(-getX(20, 30), getY(20, 30))
+    ctx.lineTo(0, 30)
+
+    ctx.fillStyle = 'red'
+    ctx.fill()
   }
 }
 
@@ -185,13 +208,13 @@ Chart.prototype.drawLine = function ({
   x0,
   y0,
   x1,
-  y1
+  y1,
 }) {
   ctx.beginPath()
   ctx.moveTo(x0, y0)
   ctx.lineTo(x1, y1)
   ctx.stroke()
-  ctx.strokeStyle = '#000'
+  ctx.strokeStyle = 'black'
 }
 
 Chart.prototype.drawCoordinateSystem = function({
@@ -210,32 +233,30 @@ Chart.prototype.drawCoordinateSystem = function({
 Chart.prototype.drawPolarSystem = function({
   ctx,
   width,
-  height
+  height,
+  yArr
 }) {
   ctx.translate(1 / 2 * width, 1 / 2 * height)
   ctx.scale(1, -1)
 
-  ctx.beginPath()
-  ctx.arc(0, 0, 80, 0, Math.PI * 2, true)
-  ctx.stroke()
+  const outerRadius = Math.max(...yArr)
 
-  ctx.beginPath()
-  ctx.arc(0, 0, 60, 0, Math.PI * 2, true)
-  ctx.stroke()
+  for (let i = 0; i < yArr.length; i++) {
+    ctx.beginPath()
+    ctx.arc(0, 0, yArr[i], 0, Math.PI * 2, true)
+    ctx.stroke()
+  }
 
-  ctx.beginPath()
-  ctx.arc(0, 0, 40, 0, Math.PI * 2, true)
-  ctx.stroke()
-
-  const y1 = 300 * Math.tan(Math.PI / 180 * 30)
-  const destination = [[300, y1], [-300, -y1], [-300, y1], [300, -y1], [0, y1], [0, -y1]]
+  const x1 = outerRadius * Math.cos(Math.PI / 180 * 30)
+  const y1 = outerRadius * Math.sin(Math.PI / 180 * 30)
+  const destination = [[x1, y1], [-x1, -y1], [-x1, y1], [x1, -y1], [0, outerRadius], [0, -outerRadius]]
   for (let i = 0; i < destination.length; i++) {
     this.drawLine({
       ctx,
       x0: 0,
       y0: 0,
       x1: destination[i][0],
-      y1: destination[i][1]
+      y1: destination[i][1],
     })
   }
 }
